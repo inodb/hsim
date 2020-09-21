@@ -8,17 +8,15 @@ To generate simulated HTAN Data, run:
 
     hsim generate
 
+To dump simulated HTAN Data to a file, run:
+
+    hsim generate > sim.json
+
 ## Running Unit Tests
 
 To run all unit tests:
 
     pytest
-
-## Authors
-
-* **HTAN DCC** - *Initial work* - [github](https://github.com/ecerami)
-
-See also the list of [contributors](https://github.com/ecerami/hsim/contributors) who participated in this project.
 
 ## MIT License
 
