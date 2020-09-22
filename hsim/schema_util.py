@@ -95,6 +95,8 @@ def generate_simulated_data(schema_object, htan_id):
         # print (schema_object.id)
         if schema_object.id == "bts:HTANPatientID":
             return htan_id
+        elif schema_object.id == "bts:HTANParentBiospecimenID":
+            return htan_id
         else:
             return "lorem_ipsum_%d" % random.randint(0, 100000)
     else:

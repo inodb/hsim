@@ -110,8 +110,7 @@ def get_dummy_clinical_files(id_set, schema_dict, template_id, template_type):
     participant_id_list = id_util.extract_participant_id_list(id_set)
     record_list = []
     for participant_id in participant_id_list:
-        current_record = {}
-        current_record["values"] = schema_util.get_front_end_simulated_values(
+        current_record = schema_util.get_front_end_simulated_values(
             schema_dict, template_id, participant_id
         )
         record_list.append(current_record)
@@ -126,8 +125,7 @@ def get_dummy_assay_files(id_set, schema_dict, template_id, template_type):
     sample_id_list = id_util.extract_sample_id_list(id_set)
     record_list = []
     for sample_id in sample_id_list:
-        current_record = {}
-        current_record["values"] = schema_util.get_front_end_simulated_values(
+        current_record = schema_util.get_front_end_simulated_values(
             schema_dict, template_id, sample_id
         )
         record_list.append(current_record)
