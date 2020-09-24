@@ -91,7 +91,7 @@ def generate_simulated_data(schema_object, htan_id):
     if inferred_data_type == SchemaObject.NUMERIC:
         return random.randint(0, 100)
     elif inferred_data_type == SchemaObject.STRING:
-        # Use HTAN ID in this case
+        # Use HTAN ID in these cases
         # print (schema_object.id)
         if schema_object.id == "bts:HTANPatientID":
             return htan_id
