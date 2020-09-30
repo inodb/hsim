@@ -64,7 +64,7 @@ def get_template_list():
     template_list.append(["bts:Exposure", "clinical"])
     template_list.append(["bts:FollowUp", "clinical"])
     template_list.append(["bts:Therapy", "clinical"])
-    template_list.append(["bts:ScRNA-seqAssay", "assay"])
+    template_list.append(["bts:ScRNA-seqLevel1", "assay"])
     return template_list
 
 

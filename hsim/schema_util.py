@@ -93,7 +93,7 @@ def generate_simulated_data(schema_object, htan_id):
     elif inferred_data_type == SchemaObject.STRING:
         # Use HTAN ID in these cases
         # print (schema_object.id)
-        if schema_object.id == "bts:HTANPatientID":
+        if schema_object.id == "bts:HTANParticipantID":
             return htan_id
         elif schema_object.id == "bts:HTANParentBiospecimenID":
             return htan_id
