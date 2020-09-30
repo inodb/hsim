@@ -35,4 +35,7 @@ def test_generate_id_set():
     assert len(participant_id_list) == 2
 
     sample_id_list = id_util.extract_sample_id_list(id_table)
-    assert len(sample_id_list) == 8    
+    assert len(sample_id_list) == 8
+
+    parent_id = id_util.extract_parent_id(id_table, "HTA1_0_1")
+    assert (parent_id == "HTA1_0_0")    

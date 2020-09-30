@@ -64,7 +64,9 @@ def get_template_list():
     template_list.append(["bts:Exposure", "clinical"])
     template_list.append(["bts:FollowUp", "clinical"])
     template_list.append(["bts:Therapy", "clinical"])
+    template_list.append(["bts:Biospecimen", "biospecimen"])
     template_list.append(["bts:ScRNA-seqLevel1", "assay"])
+    template_list.append(["bts:OtherAssay", "assay"])
     return template_list
 
 
@@ -96,7 +98,11 @@ def generate_simulated_atlas(atlas_id, atlas_name, schema_dict, template_list):
         template_label = schema_util.get_label(schema_dict, template[0])
         template_type = template[1]
         if template_type == "clinical":
-            atlas[template_label] = get_dummy_clinical_files(
+            atlas[template_label] = get_dummy_clinical_data(
+                id_set, schema_dict, template[0], template[1]
+            )
+        elif template_type == "biospecimen":
+            atlas[template_label] = get_dummy_biospecimen_data(
                 id_set, schema_dict, template[0], template[1]
             )
         else:
@@ -106,12 +112,27 @@ def generate_simulated_atlas(atlas_id, atlas_name, schema_dict, template_list):
     return atlas
 
 
-def get_dummy_clinical_files(id_set, schema_dict, template_id, template_type):
+def get_dummy_clinical_data(id_set, schema_dict, template_id, template_type):
     participant_id_list = id_util.extract_participant_id_list(id_set)
     record_list = []
     for participant_id in participant_id_list:
         current_record = schema_util.get_front_end_simulated_values(
             schema_dict, template_id, participant_id
+        )
+        record_list.append(current_record)
+    data = {}
+    data["data_schema"] = template_id
+    data["data_link"] = "https://www.synapse.org/#!Synapse:synXXXX/tables/YYYYY"
+    data["record_list"] = record_list
+    return data
+
+def get_dummy_biospecimen_data(id_set, schema_dict, template_id, template_type):
+    sample_id_list = id_util.extract_sample_id_list(id_set)
+    record_list = []
+    for sample_id in sample_id_list:
+        parent_id = id_util.extract_parent_id(id_set, sample_id)
+        current_record = schema_util.get_front_end_simulated_values(
+            schema_dict, template_id, sample_id, parent_id
         )
         record_list.append(current_record)
     data = {}

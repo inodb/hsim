@@ -85,7 +85,7 @@ def extract_template(schema_dict, target_id):
     return object_list
 
 
-def generate_simulated_data(schema_object, htan_id):
+def generate_simulated_data(schema_object, htan_id, parent_id=None):
     """Generate Simulated Data for the Specified Template."""
     inferred_data_type = schema_object.inferred_data_type
     if inferred_data_type == SchemaObject.NUMERIC:
@@ -95,8 +95,12 @@ def generate_simulated_data(schema_object, htan_id):
         # print (schema_object.id)
         if schema_object.id == "bts:HTANParticipantID":
             return htan_id
+        elif schema_object.id == "bts:HTANBiospecimenID":
+            return htan_id
         elif schema_object.id == "bts:HTANParentBiospecimenID":
             return htan_id
+        elif schema_object.id == "bts:HTANParentID":
+            return parent_id
         else:
             return "lorem_ipsum_%d" % random.randint(0, 100000)
     else:
@@ -117,12 +121,12 @@ def get_front_end_schema(schema_dict, target_id):
     return field_list
 
 
-def get_front_end_simulated_values(schema_dict, target_id, htan_id):
+def get_front_end_simulated_values(schema_dict, target_id, htan_id, parent_id=None):
     """Get Front-End Simulated Data for the Specified Template."""
     object_list = extract_template(schema_dict, target_id)
     value_list = []
     for schema_object in object_list:
-        value_list.append(generate_simulated_data(schema_object, htan_id))
+        value_list.append(generate_simulated_data(schema_object, htan_id, parent_id))
     return value_list
 
 

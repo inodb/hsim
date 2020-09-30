@@ -25,6 +25,10 @@ def generate_id_set(htan_id, num_participants, num_samples_per_participant):
     id_table = []
     participant_id_list = generate_htan_participant_ids(htan_id, num_participants)
 
+    # Table is of the form:
+    # 0 - SAMPLE OR PARTICIPANT
+    # 1 - HTAN ID
+    # 2 - Parent HTAN ID
     for participant_id in participant_id_list:
         id_table.append([PARTICIPANT, participant_id, "-"])
         sample_id_list = generate_sample_ids(
@@ -56,4 +60,10 @@ def extract_sample_id_list (id_table):
     for row in id_table:
         if row[0] == SAMPLE:
             sample_id_list.append(row[1])
-    return sample_id_list    
+    return sample_id_list
+
+def extract_parent_id (id_table, target_id):
+    """Extract Parent ID of Target from ID Set Table."""
+    for row in id_table:
+        if row[1] == target_id:
+            return row[2]
