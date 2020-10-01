@@ -66,6 +66,16 @@ def get_template_list():
     template_list.append(["bts:Therapy", "clinical"])
     template_list.append(["bts:Biospecimen", "biospecimen"])
     template_list.append(["bts:ScRNA-seqLevel1", "assay"])
+    template_list.append(["bts:ScRNA-seqLevel2", "assay"])
+    template_list.append(["bts:ScRNA-seqLevel3", "assay"])
+    template_list.append(["bts:ScRNA-seqLevel4", "assay"])
+    template_list.append(["bts:BulkRNA-seqLevel1", "assay"])
+    template_list.append(["bts:BulkRNA-seqLevel2", "assay"])
+    template_list.append(["bts:BulkRNA-seqLevel3", "assay"])
+    template_list.append(["bts:ScATAC-seqLevel1", "assay"])
+    template_list.append(["bts:BulkWESLevel1", "assay"])
+    template_list.append(["bts:BulkWESLevel2", "assay"])
+    template_list.append(["bts:BulkWESLevel3", "assay"])
     template_list.append(["bts:OtherAssay", "assay"])
     return template_list
 
