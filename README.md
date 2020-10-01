@@ -6,11 +6,7 @@ Command Line Tool to generate simulated HTAN metadata.  The simulated metadata i
 
 To generate simulated HTAN Data, run:
 
-    hsim generate
-
-To dump simulated HTAN Data to a file, run:
-
-    hsim generate > sim.json
+    hsim generate example_output/sim.json
 
 ## Running Unit Tests
 
