@@ -57,10 +57,10 @@ def test_generate_simulated_data():
     schema_dict = schema_util.load_htan_schema()
     schema_list = schema_util.extract_template(schema_dict, "bts:Demographics")
 
-    patient_id = schema_util.generate_simulated_data(schema_list[1], "HTA1_0")
-    ethnicity = schema_util.generate_simulated_data(schema_list[2], "HTA1_0")
-    gender = schema_util.generate_simulated_data(schema_list[3], "HTA1_0")
-    days_to_birth = schema_util.generate_simulated_data(schema_list[6], "HTA1_0")
+    patient_id = schema_util.generate_simulated_data(schema_list[1], "bts:Demographics", "HTA1_0")
+    ethnicity = schema_util.generate_simulated_data(schema_list[2], "bts:Demographics", "HTA1_0")
+    gender = schema_util.generate_simulated_data(schema_list[3], "bts:Demographics", "HTA1_0")
+    days_to_birth = schema_util.generate_simulated_data(schema_list[6], "bts:Demographics", "HTA1_0")
 
     assert patient_id == "HTA1_0"
     assert ethnicity == "not reported"
@@ -81,4 +81,4 @@ def test_get_front_end_schema():
     assert len(values) == 12
     assert values[1] == "HTA1_0"
     assert values[2] == "not reported"
-    assert values[3] == "female"
+    assert values[3] == "unspecified"
