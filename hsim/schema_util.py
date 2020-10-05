@@ -127,7 +127,9 @@ def get_front_end_simulated_values(schema_dict, template_id, htan_id, parent_id=
     object_list = extract_template(schema_dict, template_id)
     value_list = []
     for schema_object in object_list:
-        value_list.append(generate_simulated_data(schema_object, template_id, htan_id, parent_id))
+        value_list.append(
+            generate_simulated_data(schema_object, template_id, htan_id, parent_id)
+        )
     return value_list
 
 

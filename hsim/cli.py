@@ -20,7 +20,7 @@ def cli():
 
 
 @cli.command()
-@click.argument('json_file', type=click.Path(), default='example_output/sim.json')
+@click.argument("json_file", type=click.Path(), default="example_output/sim.json")
 def generate(json_file):
     """Generate Simulated HTAN Data"""
 
@@ -48,10 +48,19 @@ def generate(json_file):
     generate_schemas_node(schema_dict, template_list, data_set)
 
     json_dump = json.dumps(data_set, indent=4)
-    print(emoji.emojize('Writing JSON File:  %s :beer:' % json_file, use_aliases=True))
+    print(emoji.emojize("Writing JSON File:  %s :beer:" % json_file, use_aliases=True))
     out = open(json_file, "w")
     out.write(json_dump)
     out.close()
+
+
+@cli.command()
+@click.argument(
+    "json_file", type=click.Path(exists=True), default="example_output/sim.json"
+)
+def check_links(json_file):
+    """Check all internal links"""
+    pass
 
 
 def get_atlas_list():
@@ -140,6 +149,7 @@ def get_dummy_clinical_data(id_set, schema_dict, template_id, template_type):
     data["data_link"] = "https://www.synapse.org/#!Synapse:synXXXX/tables/YYYYY"
     data["record_list"] = record_list
     return data
+
 
 def get_dummy_biospecimen_data(id_set, schema_dict, template_id, template_type):
     sample_id_list = id_util.extract_sample_id_list(id_set)

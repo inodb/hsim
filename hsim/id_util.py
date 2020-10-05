@@ -4,6 +4,7 @@ Utility Functions for Generating and Managing HTAN Identifiers.
 PARTICIPANT = "PARTICIPANT"
 SAMPLE = "SAMPLE"
 
+
 def generate_htan_participant_ids(htan_id, num_ids):
     """Generate N Participant IDs for the Specified HTAN Atlas."""
     id_list = []
@@ -46,7 +47,8 @@ def generate_id_set(htan_id, num_participants, num_samples_per_participant):
 
     return id_table
 
-def extract_participant_id_list (id_table):
+
+def extract_participant_id_list(id_table):
     """Extract Participant ID List from ID Set Table."""
     participant_id_list = []
     for row in id_table:
@@ -54,7 +56,8 @@ def extract_participant_id_list (id_table):
             participant_id_list.append(row[1])
     return participant_id_list
 
-def extract_sample_id_list (id_table):
+
+def extract_sample_id_list(id_table):
     """Extract Sample ID List from ID Set Table."""
     sample_id_list = []
     for row in id_table:
@@ -62,7 +65,8 @@ def extract_sample_id_list (id_table):
             sample_id_list.append(row[1])
     return sample_id_list
 
-def extract_parent_id (id_table, target_id):
+
+def extract_parent_id(id_table, target_id):
     """Extract Parent ID of Target from ID Set Table."""
     for row in id_table:
         if row[1] == target_id:
