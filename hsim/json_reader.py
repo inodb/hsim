@@ -33,7 +33,7 @@ class HtanJsonReader:
         atlas_list = self.doc["atlases"]
         return len(atlas_list)
 
-    def get_index(self, list_name, attribute_name):
+    def get_attribute_index(self, list_name, attribute_name):
         """
         Get the index value for the specified list and attribute pair.
         """
@@ -62,7 +62,7 @@ class HtanJsonReader:
         """
         sample_id_list = []
         biospecimen_list = "Biospecimen"
-        attribute_index = self.get_index(biospecimen_list, "bts:HTANBiospecimenID")
+        attribute_index = self.get_attribute_index(biospecimen_list, "bts:HTANBiospecimenID")
         record_list = atlas[biospecimen_list]["record_list"]
         for record in record_list:
             sample_id = record[attribute_index]
@@ -75,7 +75,7 @@ class HtanJsonReader:
         """
         atlas_list = self.doc["atlases"]
         target_id = "bts:HTANParentBiospecimenID"
-        attribute_index = self.get_index(list_name, target_id)
+        attribute_index = self.get_attribute_index(list_name, target_id)
         for atlas in atlas_list:
             sample_id_list = self.__extract_sample_ids(atlas)
             record_list = atlas[list_name]["record_list"]

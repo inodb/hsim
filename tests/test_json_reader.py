@@ -14,6 +14,6 @@ def test_load():
     json_doc = reader.get_doc()
 
     assert reader.get_num_atlases() == 2
-    assert reader.get_index("ScRNA-seqLevel1", "bts:HTANParentBiospecimenID") == 3
+    assert reader.get_attribute_index("ScRNA-seqLevel1", "bts:HTANParentBiospecimenID") == 3
 
     assert len(reader.get_error_list()) == 0

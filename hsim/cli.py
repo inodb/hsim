@@ -21,11 +21,12 @@ def cli():
 
 @cli.command()
 @click.argument("json_file", type=click.Path(), default="example_output/sim.json")
-def generate(json_file):
+@click.option("--num_atlases", type=click.INT, default=3)
+def generate(json_file, num_atlases):
     """Generate Simulated HTAN Data"""
 
     # The Atlases for which we will generate simulated data
-    target_atlas_list = get_atlas_list()
+    target_atlas_list = get_atlas_list(num_atlases)
 
     # The Data Templates for which we will generate simulated data
     template_list = get_template_list()
@@ -63,10 +64,10 @@ def check_links(json_file):
     pass
 
 
-def get_atlas_list():
+def get_atlas_list(num_atlases):
     target_atlas_list = []
-    target_atlas_list.append(["HTA1", "HTAPP Pilot Project"])
-    target_atlas_list.append(["HTA2", "PCAPP Pilot Project"])
+    for i in range (num_atlases):
+        target_atlas_list.append(["HTA%d" % i, "HTAN Atlas %d" % i])
     return target_atlas_list
 
 
