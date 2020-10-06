@@ -13,7 +13,7 @@ def test_load():
     reader = json_reader.HtanJsonReader(fname)
     json_doc = reader.get_doc()
 
-    assert reader.get_num_atlases() == 2
+    assert reader.get_num_atlases() == 1
     assert reader.get_attribute_index("ScRNA-seqLevel1", "bts:HTANParentBiospecimenID") == 3
 
     assert len(reader.get_error_list()) == 0
