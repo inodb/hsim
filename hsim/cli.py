@@ -6,6 +6,10 @@ from . import id_util
 from pathlib import Path
 import emoji
 
+ASSAY_TYPE = "assay"
+CLINICAL_TYPE = "clinical"
+BIOSPECIMEN_TYPE = "biospecimen"
+
 """
 This is the entry point for the command-line interface (CLI) application.
 """
@@ -73,25 +77,25 @@ def get_atlas_list(num_atlases):
 
 def get_template_list():
     template_list = []
-    template_list.append(["bts:Demographics", "clinical"])
-    template_list.append(["bts:Diagnosis", "clinical"])
-    template_list.append(["bts:FollowUp", "clinical"])
-    template_list.append(["bts:Exposure", "clinical"])
-    template_list.append(["bts:FollowUp", "clinical"])
-    template_list.append(["bts:Therapy", "clinical"])
-    template_list.append(["bts:Biospecimen", "biospecimen"])
-    template_list.append(["bts:ScRNA-seqLevel1", "assay"])
-    template_list.append(["bts:ScRNA-seqLevel2", "assay"])
-    template_list.append(["bts:ScRNA-seqLevel3", "assay"])
-    template_list.append(["bts:ScRNA-seqLevel4", "assay"])
-    template_list.append(["bts:BulkRNA-seqLevel1", "assay"])
-    template_list.append(["bts:BulkRNA-seqLevel2", "assay"])
-    template_list.append(["bts:BulkRNA-seqLevel3", "assay"])
-    template_list.append(["bts:ScATAC-seqLevel1", "assay"])
-    template_list.append(["bts:BulkWESLevel1", "assay"])
-    template_list.append(["bts:BulkWESLevel2", "assay"])
-    template_list.append(["bts:BulkWESLevel3", "assay"])
-    template_list.append(["bts:OtherAssay", "assay"])
+    template_list.append(["bts:Demographics", CLINICAL_TYPE])
+    template_list.append(["bts:Diagnosis", CLINICAL_TYPE])
+    template_list.append(["bts:FollowUp", CLINICAL_TYPE])
+    template_list.append(["bts:Exposure", CLINICAL_TYPE])
+    template_list.append(["bts:FollowUp", CLINICAL_TYPE])
+    template_list.append(["bts:Therapy", CLINICAL_TYPE])
+    template_list.append(["bts:Biospecimen", BIOSPECIMEN_TYPE])
+    template_list.append(["bts:ScRNA-seqLevel1", ASSAY_TYPE])
+    template_list.append(["bts:ScRNA-seqLevel2", ASSAY_TYPE])
+    template_list.append(["bts:ScRNA-seqLevel3", ASSAY_TYPE])
+    template_list.append(["bts:ScRNA-seqLevel4", ASSAY_TYPE])
+    template_list.append(["bts:BulkRNA-seqLevel1", ASSAY_TYPE])
+    template_list.append(["bts:BulkRNA-seqLevel2", ASSAY_TYPE])
+    template_list.append(["bts:BulkRNA-seqLevel3", ASSAY_TYPE])
+    template_list.append(["bts:ScATAC-seqLevel1", ASSAY_TYPE])
+    template_list.append(["bts:BulkWESLevel1", ASSAY_TYPE])
+    template_list.append(["bts:BulkWESLevel2", ASSAY_TYPE])
+    template_list.append(["bts:BulkWESLevel3", ASSAY_TYPE])
+    template_list.append(["bts:OtherAssay", ASSAY_TYPE])
     return template_list
 
 
@@ -122,11 +126,11 @@ def generate_simulated_atlas(atlas_id, atlas_name, schema_dict, template_list):
     for template in template_list:
         template_label = schema_util.get_label(schema_dict, template[0])
         template_type = template[1]
-        if template_type == "clinical":
+        if template_type == CLINICAL_TYPE:
             atlas[template_label] = get_dummy_clinical_data(
                 id_set, schema_dict, template[0], template[1]
             )
-        elif template_type == "biospecimen":
+        elif template_type == BIOSPECIMEN_TYPE:
             atlas[template_label] = get_dummy_biospecimen_data(
                 id_set, schema_dict, template[0], template[1]
             )
