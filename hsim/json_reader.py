@@ -18,6 +18,9 @@ class HtanJsonReader:
             if template[1] == cli.ASSAY_TYPE:
                 self.__check_assay_links(template[0].replace("bts:", ""))
 
+        # Check the Biospecimen Links
+        self.__check_biospecimen_links()
+
     def get_doc(self):
         """
         Get the Loaded JSON Doc.
@@ -73,6 +76,19 @@ class HtanJsonReader:
             sample_id_list.append(sample_id)
         return sample_id_list
 
+    def __extract_participant_ids(self, atlas):
+        """
+        Extract the Participant IDs.
+        """
+        participant_id_list = []
+        biospecimen_list = "Demographics"
+        attribute_index = self.get_attribute_index(biospecimen_list, "bts:HTANParticipantID")
+        record_list = atlas[biospecimen_list]["record_list"]
+        for record in record_list:
+            participant_id = record[attribute_index]
+            participant_id_list.append(participant_id)
+        return participant_id_list        
+
     def __check_assay_links(self, list_name):
         """
         Check Assay Links.
@@ -90,3 +106,22 @@ class HtanJsonReader:
                         "Within %s, we have %s:%s, but this ID does not exist within the Biospecimen list."
                         % (list_name, target_id, biospecimen_id)
                     )
+
+    def __check_biospecimen_links(self):
+        """
+        Check Biospecimen Links.
+        """
+        atlas_list = self.doc["atlases"]
+        target_id = "bts:HTANParentID"
+        list_name = "Biospecimen"
+        attribute_index = self.get_attribute_index(list_name, target_id)
+        for atlas in atlas_list:
+            participant_id_list = self.__extract_participant_ids(atlas)
+            sample_id_list = self.__extract_sample_ids(atlas)
+            record_list = atlas[list_name]["record_list"]
+            for record in record_list:
+                parent_id = record[attribute_index]
+                if parent_id not in participant_id_list and parent_id not in sample_id_list:
+                    msg = "Within %s, we have %s:%s, but this ID does not exist within " \
+                        "the Biospecimen or Demographics list." % (list_name, target_id, parent_id)
+                    self.error_list.append(msg)

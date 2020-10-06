@@ -33,9 +33,14 @@ def test_broken_links():
 
     fname = os.path.join(os.path.dirname(__file__), "test_data/sim_broken_links.json")
     reader = json_reader.HtanJsonReader(fname, template_list)
-    assert len(reader.get_error_list()) == 1
+    assert len(reader.get_error_list()) == 2
     assert (
         reader.get_error_list()[0]
         == "Within ScRNA-seqLevel1, we have bts:HTANParentBiospecimenID:HTA0_0_10000, "
         "but this ID does not exist within the Biospecimen list."
+    )
+    assert (
+        reader.get_error_list()[1]
+        == "Within Biospecimen, we have bts:HTANParentID:HTA0_10000, but this ID does not "
+        "exist within the Biospecimen or Demographics list."
     )
