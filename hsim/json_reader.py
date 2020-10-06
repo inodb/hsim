@@ -1,18 +1,22 @@
 import json
-
+from hsim import cli
 
 class HtanJsonReader:
     """
     Utility Class for Reading in HTAN JSON File.
     """
 
-    def __init__(self, json_file_name):
+    def __init__(self, json_file_name, template_list):
         self.error_list = []
         self.json_file_name = json_file_name
         fd = open(json_file_name, "r")
         self.doc = json.load(fd)
         self.__load_schema()
-        self.__check_assay_links("ScRNA-seqLevel1")
+
+        # Check Links for All Assays
+        for template in template_list:
+            if template[1] == cli.ASSAY_TYPE:
+                self.__check_assay_links(template[0].replace("bts:", ""))
 
     def get_doc(self):
         """
@@ -83,6 +87,6 @@ class HtanJsonReader:
                 biospecimen_id = record[attribute_index]
                 if biospecimen_id not in sample_id_list:
                     self.error_list.append(
-                        "Within %s, we have %s:%s, but this ID does not exist within the Biospecimen list"
+                        "Within %s, we have %s:%s, but this ID does not exist within the Biospecimen list."
                         % (list_name, target_id, biospecimen_id)
                     )

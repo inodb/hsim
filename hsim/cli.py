@@ -3,6 +3,7 @@
 import json
 from . import schema_util
 from . import id_util
+from . import json_reader
 from pathlib import Path
 import emoji
 
@@ -65,7 +66,16 @@ def generate(json_file, num_atlases):
 )
 def check_links(json_file):
     """Check all internal links"""
-    pass
+    print ("Checking links in %s." % json_file)
+    template_list = get_template_list()
+    reader = json_reader.HtanJsonReader(json_file, template_list)
+    error_list = reader.get_error_list()
+    if len(error_list) == 0:
+        print (emoji.emojize("All links check out. Congrats! :beer:", use_aliases=True))
+    else:
+        print (emoji.emojize("Total number of error found:  %d :lemon:" % len(error_list), use_aliases=True))
+        for error in error_list:
+            print (error)
 
 
 def get_atlas_list(num_atlases):
