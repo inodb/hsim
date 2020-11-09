@@ -105,8 +105,18 @@ def generate_simulated_data(schema_object, template_id, htan_id, parent_id=None)
         else:
             return "lorem_ipsum_%d" % random.randint(0, 100000)
     else:
-        random_index = random.randint(0, len(schema_object.option_list) - 1)
-        return schema_object.option_list[random_index]
+        if schema_object.id == "bts:PrimaryDiagnosis":
+            htan_id_nr = int(htan_id.split("_")[0][3:])
+            CANCER_TYPES = ["High Risk Acute Lymphoblastic Leukemia", "Breast Cancer", "High Grade Glioma","Colon Cancer", "Lung Cancer", "Sarcoma", "Ovarian Cancer", "Ductal adenocarcinoma","Prostate Cancer", "Melanoma","Neuroblastoma","Breast Cancer"]
+            return CANCER_TYPES[htan_id_nr]
+        elif schema_object.id == "bts:TissueorOrganofOrigin":
+            htan_id_nr = int(htan_id.split("_")[0][3:])
+            ORGAN_TYPES = ["Blood", "Breast", "Central Nervous System","Colon", "Lung", "Muscle/Bone", "Ovary", "Pancreas", "Prostate","Skin","Symphatic Nervous System","Breast"]
+            print(len(ORGAN_TYPES))
+            return ORGAN_TYPES[htan_id_nr]
+        else:
+            random_index = random.randint(0, len(schema_object.option_list) - 1)
+            return schema_object.option_list[random_index]
 
 
 def get_front_end_schema(schema_dict, target_id):
